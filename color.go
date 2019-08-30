@@ -130,12 +130,12 @@ func NewRGB(r, g, b uint8, value ...Attribute) *Color {
 }
 
 // NewHex returns a newly created color object from given hex color; e.g #7fe9a2
-func NewHex(h string, value ...Attribute) (*Color, error) {
+func NewHex(h string, value ...Attribute) *Color {
 	r, g, b, err := hexToRGB(h)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return NewRGB(r, g, b, value...), nil
+	return NewRGB(r, g, b, value...)
 }
 
 // Set sets the given parameters immediately. It will change the color of

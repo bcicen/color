@@ -1,6 +1,7 @@
 package color
 
 import (
+	"encoding/hex"
 	"fmt"
 	"io"
 	"os"
@@ -126,6 +127,15 @@ func NewRGB(r, g, b uint8, value ...Attribute) *Color {
 	c.Add(value...)
 
 	return c
+}
+
+// NewHex returns a newly created color object from given hex color; e.g #7fe9a2
+func NewHex(h string, value ...Attribute) (*Color, error) {
+	r, g, b, err := hexToRGB(h)
+	if err != nil {
+		return nil, err
+	}
+	return NewRGB(r, g, b, value...), nil
 }
 
 // Set sets the given parameters immediately. It will change the color of
@@ -615,4 +625,25 @@ func HiCyanString(format string, a ...interface{}) string { return colorString(f
 // foreground.
 func HiWhiteString(format string, a ...interface{}) string {
 	return colorString(format, FgHiWhite, a...)
+}
+
+func hexToRGB(h string) (r, g, b uint8, err error) {
+	if string(h[0]) == "#" {
+		h = h[1:]
+	}
+
+	if len(h) == 3 {
+		h = string(h[0]) + string(h[0]) + string(h[1]) + string(h[1]) + string(h[2]) + string(h[2])
+	}
+
+	var hb []byte
+	hb, err = hex.DecodeString(h)
+	if err != nil {
+		return
+	}
+
+	r = uint8(hb[0])
+	g = uint8(hb[1])
+	b = uint8(hb[2])
+	return
 }

@@ -113,6 +113,21 @@ func New(value ...Attribute) *Color {
 	return c
 }
 
+// NewRGB returns a newly created color object from given r,b,g
+func NewRGB(r, g, b uint8, value ...Attribute) *Color {
+	c := &Color{params: make([]Attribute, 0)}
+	c.Add(
+		Attribute(38),
+		Attribute(2),
+		Attribute(r),
+		Attribute(g),
+		Attribute(b),
+	)
+	c.Add(value...)
+
+	return c
+}
+
 // Set sets the given parameters immediately. It will change the color of
 // output with the given SGR parameters until color.Unset() is called.
 func Set(p ...Attribute) *Color {

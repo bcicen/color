@@ -37,6 +37,7 @@ fmt.Println(mint.Sprintf("such"), pink.Sprintf("color"))
 ```
 
 Produces:
+
 ![Color](https://bradley.codes/static/img/go-color.png)
 
 ### Mix and reuse colors

@@ -20,8 +20,24 @@ color.Blue("Prints %s in blue.", "text")
 // These are using the default foreground colors
 color.Red("We have red")
 color.Magenta("And many others ..")
-
 ```
+
+### Extended colors
+
+```go
+mint := color.NewHex("#b5e9c6")
+pink := color.NewRGB(232, 181, 215)
+
+fmt.Println(mint.Sprintf("such"), pink.Sprintf("color"))
+
+// add background color
+mint = mint.Merge(color.NewBgHex("#607c78"))
+pink = pink.Merge(color.NewBgHex("607c78")) // # prefix optional
+fmt.Println(mint.Sprintf("such"), pink.Sprintf("color"))
+```
+
+Produces:
+![Color](https://bradley.codes/static/img/go-color.png)
 
 ### Mix and reuse colors
 

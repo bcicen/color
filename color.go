@@ -114,7 +114,7 @@ func New(value ...Attribute) *Color {
 	return c
 }
 
-// NewRGB returns a newly created color object from given r,b,g
+// NewRGB returns a newly created foreground color object from given r,b,g
 func NewRGB(r, g, b uint8, value ...Attribute) *Color {
 	c := &Color{params: make([]Attribute, 0)}
 	c.Add(
@@ -129,13 +129,43 @@ func NewRGB(r, g, b uint8, value ...Attribute) *Color {
 	return c
 }
 
-// NewHex returns a newly created color object from given hex color; e.g #7fe9a2
+// NewBgRGB returns a newly created background color object from given r,b,g
+func NewBgRGB(r, g, b uint8, value ...Attribute) *Color {
+	c := &Color{params: make([]Attribute, 0)}
+	c.Add(
+		Attribute(48),
+		Attribute(2),
+		Attribute(r),
+		Attribute(g),
+		Attribute(b),
+	)
+	c.Add(value...)
+
+	return c
+}
+
+// NewHex returns a newly created foreground color object from given hex color; e.g #7fe9a2
 func NewHex(h string, value ...Attribute) *Color {
 	r, g, b, err := hexToRGB(h)
 	if err != nil {
 		panic(err)
 	}
 	return NewRGB(r, g, b, value...)
+}
+
+// NewBgHex returns a newly created background color object from given hex color; e.g #7fe9a2
+func NewBgHex(h string, value ...Attribute) *Color {
+	r, g, b, err := hexToRGB(h)
+	if err != nil {
+		panic(err)
+	}
+	return NewBgRGB(r, g, b, value...)
+}
+
+// Merge combines the Attributes of two Colors, typically a foreground and background
+func (c *Color) Merge(other *Color) *Color {
+	c.params = append(c.params, other.params...)
+	return c
 }
 
 // Set sets the given parameters immediately. It will change the color of

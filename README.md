@@ -1,30 +1,10 @@
-# Archived project. No maintenance. 
+# Color [![GoDoc](https://godoc.org/github.com/bcicen/color?status.svg)](https://godoc.org/github.com/bcicen/color)
 
-This project is not maintained anymore and is archived. Feel free to fork and
-make your own changes if needed. For more detail read my blog post: [Taking an indefinite sabbatical from my projects](https://arslan.io/2018/10/09/taking-an-indefinite-sabbatical-from-my-projects/)
-
-Thanks to everyone for their valuable feedback and contributions.
-
-
-# Color [![GoDoc](https://godoc.org/github.com/fatih/color?status.svg)](https://godoc.org/github.com/fatih/color) [![Build Status](https://img.shields.io/travis/fatih/color.svg?style=flat-square)](https://travis-ci.org/fatih/color)
-
-Color lets you use colorized outputs in terms of [ANSI Escape
-Codes](http://en.wikipedia.org/wiki/ANSI_escape_code#Colors) in Go (Golang). It
-has support for Windows too! The API can be used in several ways, pick one that
-suits you.
-
-
-![Color](https://i.imgur.com/c1JI0lA.png)
-
-
-## Install
+Color is a fork of the popular [fatih/color](https://github.com/fatih/color) package, with added support for 256 + RGB + Hex formats.
 
 ```bash
-go get github.com/fatih/color
+go get github.com/bcicen/color
 ```
-
-Note that the `vendor` folder is here for stability. Remove the folder if you
-already have the dependencies in your GOPATH.
 
 ## Examples
 
@@ -181,5 +161,4 @@ c.Println("This prints again cyan...")
 
 ## License
 
-The MIT License (MIT) - see [`LICENSE.md`](https://github.com/fatih/color/blob/master/LICENSE.md) for more details
-
+The MIT License (MIT) - see [`LICENSE.md`](https://github.com/bcicen/color/blob/master/LICENSE.md) for more details

@@ -25,8 +25,8 @@ color.Magenta("And many others ..")
 ### Extended colors
 
 ```go
-mint := color.NewHex("#b5e9c6")
-pink := color.NewRGB(232, 181, 215)
+mint, _ := color.NewHex("#b5e9c6")
+pink, _ := color.NewRGB(232, 181, 215)
 
 fmt.Println(mint.Sprintf("such"), pink.Sprintf("color"))
 

@@ -340,3 +340,35 @@ func TestNoFormatString(t *testing.T) {
 		}
 	}
 }
+
+func TestNewHex(t *testing.T) {
+	// empty string
+	color := MustNewHex("")
+	if !color.Equals(MustNewHex("#000000")) {
+		t.Errorf("empty string should return black")
+	}
+	// short string
+	color = MustNewHex("#FF")
+	if !color.Equals(MustNewHex("#FF0000")) {
+		t.Errorf("#FF should return red")
+	}
+	// long string
+	color = MustNewHex("#FFFFFFFFFF")
+	if !color.Equals(MustNewHex("#FFFFFF")) {
+		t.Errorf("repeated F should return white")
+	}
+	// invalid
+	_, err := NewHex("#YYYYYY")
+	if err == nil {
+		t.Errorf("invalid hex should return error")
+	}
+	// odd length
+	_, err = NewHex("#F")
+	if err == nil {
+		t.Errorf("odd length hex should return error")
+	}
+	_, err = NewHex("#FFFFF")
+	if err == nil {
+		t.Errorf("odd length hex should return error")
+	}
+}

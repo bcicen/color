@@ -145,21 +145,41 @@ func NewBgRGB(r, g, b uint8, value ...Attribute) *Color {
 }
 
 // NewHex returns a newly created foreground color object from given hex color; e.g #7fe9a2
-func NewHex(h string, value ...Attribute) *Color {
+func NewHex(h string, value ...Attribute) (*Color, error) {
 	r, g, b, err := hexToRGB(h)
+	if err != nil {
+		return nil, err
+	}
+	return NewRGB(r, g, b, value...), nil
+}
+
+// MustNewHex returns a newly created foreground color object from given hex color; e.g #7fe9a2
+// MustNewHex will panic if it receives an invalid hex color
+func MustNewHex(h string, value ...Attribute) *Color {
+	color, err := NewHex(h, value...)
 	if err != nil {
 		panic(err)
 	}
-	return NewRGB(r, g, b, value...)
+	return color
 }
 
 // NewBgHex returns a newly created background color object from given hex color; e.g #7fe9a2
-func NewBgHex(h string, value ...Attribute) *Color {
+func NewBgHex(h string, value ...Attribute) (*Color, error) {
 	r, g, b, err := hexToRGB(h)
+	if err != nil {
+		return nil, err
+	}
+	return NewBgRGB(r, g, b, value...), nil
+}
+
+// MustNewBgHex returns a newly created background color object from given hex color; e.g #7fe9a2
+// MustNewBgHex will panic if it receives an invalid hex color
+func MustNewBgHex(h string, value ...Attribute) *Color {
+	color, err := NewBgHex(h, value...)
 	if err != nil {
 		panic(err)
 	}
-	return NewBgRGB(r, g, b, value...)
+	return color
 }
 
 // Merge combines the Attributes of two Colors, typically a foreground and background
@@ -658,8 +678,10 @@ func HiWhiteString(format string, a ...interface{}) string {
 }
 
 func hexToRGB(h string) (r, g, b uint8, err error) {
-	if string(h[0]) == "#" {
-		h = h[1:]
+	if len(h) > 2 {
+		if string(h[0]) == "#" {
+			h = h[1:]
+		}
 	}
 
 	if len(h) == 3 {
@@ -672,8 +694,14 @@ func hexToRGB(h string) (r, g, b uint8, err error) {
 		return
 	}
 
-	r = uint8(hb[0])
-	g = uint8(hb[1])
-	b = uint8(hb[2])
+	if len(hb) > 0 {
+		r = uint8(hb[0])
+	}
+	if len(hb) > 1 {
+		g = uint8(hb[1])
+	}
+	if len(hb) > 2 {
+		b = uint8(hb[2])
+	}
 	return
 }

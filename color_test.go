@@ -343,18 +343,18 @@ func TestNoFormatString(t *testing.T) {
 
 func TestNewHex(t *testing.T) {
 	// empty string
-	color := MustNewHex("")
-	if !color.Equals(MustNewHex("#000000")) {
+	color := Must(NewHex(""))
+	if !color.Equals(Must(NewHex("#000000"))) {
 		t.Errorf("empty string should return black")
 	}
 	// short string
-	color = MustNewHex("#FF")
-	if !color.Equals(MustNewHex("#FF0000")) {
+	color = Must(NewHex("#FF"))
+	if !color.Equals(Must(NewHex("#FF0000"))) {
 		t.Errorf("#FF should return red")
 	}
 	// long string
-	color = MustNewHex("#FFFFFFFFFF")
-	if !color.Equals(MustNewHex("#FFFFFF")) {
+	color = Must(NewHex("#FFFFFFFFFF"))
+	if !color.Equals(Must(NewHex("#FFFFFF"))) {
 		t.Errorf("repeated F should return white")
 	}
 	// invalid

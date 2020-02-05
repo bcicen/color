@@ -144,6 +144,14 @@ func NewBgRGB(r, g, b uint8, value ...Attribute) *Color {
 	return c
 }
 
+// Must wraps a NewColor function, panicking on error
+func Must(c *Color, err error) *Color {
+	if err != nil {
+		panic(err)
+	}
+	return c
+}
+
 // NewHex returns a newly created foreground color object from given hex color; e.g #7fe9a2
 func NewHex(h string, value ...Attribute) (*Color, error) {
 	r, g, b, err := hexToRGB(h)
@@ -153,16 +161,6 @@ func NewHex(h string, value ...Attribute) (*Color, error) {
 	return NewRGB(r, g, b, value...), nil
 }
 
-// MustNewHex returns a newly created foreground color object from given hex color; e.g #7fe9a2
-// MustNewHex will panic if it receives an invalid hex color
-func MustNewHex(h string, value ...Attribute) *Color {
-	color, err := NewHex(h, value...)
-	if err != nil {
-		panic(err)
-	}
-	return color
-}
-
 // NewBgHex returns a newly created background color object from given hex color; e.g #7fe9a2
 func NewBgHex(h string, value ...Attribute) (*Color, error) {
 	r, g, b, err := hexToRGB(h)
@@ -170,16 +168,6 @@ func NewBgHex(h string, value ...Attribute) (*Color, error) {
 		return nil, err
 	}
 	return NewBgRGB(r, g, b, value...), nil
-}
-
-// MustNewBgHex returns a newly created background color object from given hex color; e.g #7fe9a2
-// MustNewBgHex will panic if it receives an invalid hex color
-func MustNewBgHex(h string, value ...Attribute) *Color {
-	color, err := NewBgHex(h, value...)
-	if err != nil {
-		panic(err)
-	}
-	return color
 }
 
 // Merge combines the Attributes of two Colors, typically a foreground and background

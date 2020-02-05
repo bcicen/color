@@ -25,14 +25,14 @@ color.Magenta("And many others ..")
 ### Extended colors
 
 ```go
-mint, _ := color.NewHex("#b5e9c6")
-pink, _ := color.NewRGB(232, 181, 215)
+mint := color.Must(color.NewHex("#b5e9c6"))
+pink := color.NewRGB(232, 181, 215)
 
 fmt.Println(mint.Sprintf("such"), pink.Sprintf("color"))
 
 // add background color
-mint = mint.Merge(color.NewBgHex("#607c78"))
-pink = pink.Merge(color.NewBgHex("607c78")) // # prefix optional
+mint = mint.Merge(color.Must(color.NewBgHex("#607c78")))
+pink = pink.Merge(color.Must(color.NewBgHex("607c78"))) // # prefix optional
 fmt.Println(mint.Sprintf("such"), pink.Sprintf("color"))
 ```
 
